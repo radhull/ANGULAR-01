@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="styles.css">
 
     <!-- Polyfill(s) for older browsers -->
-    <script src="node_modules/core-js/client/shim.min.js"></script>
+    <!--<script src="node_modules/core-js/client/shim.min.js"></script>
 
     <script src="node_modules/zone.js/dist/zone.js"></script>
-    <script src="node_modules/systemjs/dist/system.src.js"></script>
-
+    <script src="node_modules/systemjs/dist/system.src.js"></script>-->
+    <script src="./bundles/polyfills.min.js"></script>
     <script src="systemjs.config.js"></script>
     <script>
       System.import('app').catch(function(err){ console.error(err); });
@@ -19,6 +19,6 @@
   </head>
 
   <body>
-    <my-app>Loading AppComponent content here ...</my-app>
+    <my-app>Cargando el contenido del AppComponent aquí ...</my-app>
   </body>
 </html>

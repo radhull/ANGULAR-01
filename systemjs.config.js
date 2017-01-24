@@ -25,7 +25,13 @@
 
       // other libraries
       'rxjs':                      'npm:rxjs',
-      'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
+      'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
+      "jquery": "./node_modules/jquery/dist/jquery.min.js",
+       "css": "./node_modules/systemjs-plugin-css/css.js",
+       "bootstrap": "./node_modules/bootstrap3/dist"
+    },
+    meta: {
+        "*.css": { loader: "css" }
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -35,7 +41,8 @@
       },
       rxjs: {
         defaultExtension: 'js'
-      }
+      },
+        "bootstrap": { "main": "js/bootstrap.min.js" }
     }
   });
 })(this);
