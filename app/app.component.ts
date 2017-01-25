@@ -4,38 +4,47 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'my-app',
   template: `
-            <div class="container theme-showcase">
-              <h1>Hola {{name}}</h1>
+            <div class="container theme-showcase" >
+              <h1>Ejercicio {{name}}</h1>
               <div class="jumbotron">
                 <div class="form-inline form-group">
-                    <label>Introduzca una tarea</label>
-                    <input [(ngModel)]="tarea" class="form-control" />
+                    <label>Introduzca una tarea: </label>
+                    <input [(ngModel)]="tarea" class="form-control"  placeholder="Tarea" style="text-transform: uppercase"/>
                     <button (click)="addTarea()" *ngIf="tarea" class="btn btn-primary">Añadir</button>
-                    <ul>
-                      <li *ngFor="let _tarea of tareas" (click)="selectTarea(_tarea)">
-                        {{_tarea.nombre}}
-                      </li>
-                    </ul>
                 </div>
+                <ul class="list-group">
+                  <li *ngFor="let item of ListaTareas; let indice = index" (click)="selectTarea(item)" class="list-group-item">
+                      <span style="text-transform: uppercase"><span class="badge">{{indice+1}}</span> 
+                        {{item.nombre}}
+                      </span>
+                      <span style="float:right" class="glyphicon glyphicon-remove" (click)="delTarea(indice)"></span>
+                  </li>
+                </ul>
               </div>
-            </div>`,
+              <my-app-detalle [tarea]="selectedTarea"></my-app-detalle>
+            </div>
+            `,
 })
 export class AppComponent  {
   name = 'Angular Radhull';
-  tareas: Tarea[];
+  ListaTareas: Tarea[];
   tarea: string;
   selectedTarea: Tarea;
   constructor() {
     this.tarea = '';
-    this.tareas = [];
+    this.ListaTareas = [];
   }
   selectTarea(tarea: Tarea) {
     this.selectedTarea = tarea;
   }
   addTarea() {
-    let tareaAdd: Tarea = {nombre: this.tarea };
-    this.tareas.push(tareaAdd);
+    this.ListaTareas.push({nombre: this.tarea });
     this.tarea = '';
+  }
+
+  delTarea(indice: number) {
+    this.ListaTareas.splice(indice, 1);
+    this.selectedTarea = null;
   }
 }
 
