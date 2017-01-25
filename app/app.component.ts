@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { LoggerService } from './logger.service';
 
 @Component({
   selector: 'my-app',
   template: `
             <div class="container theme-showcase" >
-              <h1>Ejercicio {{name}}</h1>
+              <h1>Ejercicio {{titulo}}</h1>
               <div class="jumbotron">
                 <div class="form-inline form-group">
                     <label>Introduzca una tarea: </label>
@@ -24,25 +24,34 @@ import { Component } from '@angular/core';
               <my-app-detalle [tarea]="selectedTarea"></my-app-detalle>
             </div>
             `,
+            providers: [LoggerService]
 })
-export class AppComponent  {
-  name = 'Angular Radhull';
+export class AppComponent  implements OnInit  {
+  titulo = 'Angular Radhull';
   ListaTareas: Tarea[];
   tarea: string;
   selectedTarea: Tarea;
-  constructor() {
+  ngOnInit(): void {
+    this.loggerService.log('Init');
+  }
+
+  constructor(private loggerService: LoggerService) {
     this.tarea = '';
     this.ListaTareas = [];
+    this.loggerService.log('constructor');
   }
   selectTarea(tarea: Tarea) {
     this.selectedTarea = tarea;
+    this.loggerService.log(`Seleccionada tarea ${tarea.nombre}`);
   }
   addTarea() {
     this.ListaTareas.push({nombre: this.tarea });
+    this.loggerService.log(`Añadida tarea ${this.tarea}`);
     this.tarea = '';
   }
 
   delTarea(indice: number) {
+    this.loggerService.log(`Eliminada tarea ${this.ListaTareas[indice].nombre}`);
     this.ListaTareas.splice(indice, 1);
     this.selectedTarea = null;
   }
